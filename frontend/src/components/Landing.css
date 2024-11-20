@@ -1,0 +1,39 @@
+/* Ensure the container is relatively positioned */
+.landing-container {
+    position: relative;
+    text-align: center; /* Centers text horizontally */
+    width: 100%;
+    max-width: 100%; /* Prevents overflow */
+  }
+  
+  /* Style the text container */
+  .landing-text {
+    position: absolute; /* Allows positioning over the image */
+    top: 50%; /* Vertically center the text */
+    left: 50%; /* Horizontally center the text */
+    transform: translate(-50%, -50%); /* Adjust for centering */
+    color: white; /* Makes text stand out */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Adds shadow for readability */
+  }
+  
+  /* Style the main heading */
+  .landing-text h1 {
+    font-size: 3rem; /* Enlarges text */
+    font-weight: bold; /* Ensures boldness */
+    margin: 0;
+  }
+  
+  /* Style the subtext */
+  .landing-text p {
+    font-size: 1.5rem;
+    margin: 0;
+    font-weight: lighter; /* Creates contrast with the bold header */
+  }
+  
+  /* Style the image */
+  .landing-image {
+    width: 100%; /* Ensures the image spans the full width */
+    height: auto; /* Maintains aspect ratio */
+    display: block; /* Removes bottom margin/whitespace */
+  }
+  
