@@ -8,22 +8,23 @@ from sklearn.metrics.pairwise import cosine_similarity
 app = Flask(__name__)
 
 # Enable CORS for all routes
-CORS(app, resources={r"/recommend": {"origins": "http://localhost:3001"}})
+#CORS(app, resources={r"/recommend": {"origins": "*"}})
+CORS(app)
 
 # Example clothing data
 CLOTHES_DATA = [
-    {"id": 1, "name": "Aritzia Dress", "style": "formal", "color": "beige", "size": "M", "occasion": "party", "image": "/images/aritzidress.jpeg"},
+    {"id": 1, "name": "Aritzia Dress", "style": "formal", "color": "beige", "size": "M", "occasion": "party", "image": "/images/aritziadress.jpeg"},
     {"id": 2, "name": "Black Skirt", "style": "casual", "color": "black", "size": "S", "occasion": "office", "image": "/images/blackskirt.jpeg"},
     {"id": 3, "name": "Boots", "style": "winter", "color": "brown", "size": "L", "occasion": "outdoor", "image": "/images/boots.jpeg"},
-    {"id": 4, "name": "Cargo Sweatpants", "style": "athleisure", "color": "gray", "size": "L", "occasion": "daily", "image": "/images/cargo sweatpants.png"},
-    {"id": 5, "name": "Cozy Fleece Set", "style": "loungewear", "color": "cream", "size": "M", "occasion": "home", "image": "/images/cozy fleece set.png"},
-    {"id": 6, "name": "Denim Skirt", "style": "casual", "color": "blue", "size": "M", "occasion": "daily", "image": "/images/denim skirt.png"},
-    {"id": 7, "name": "Flared Leggings", "style": "athleisure", "color": "black", "size": "S", "occasion": "workout", "image": "/images/flared leggings.png"},
-    {"id": 8, "name": "Longsleeve Minidress", "style": "formal", "color": "red", "size": "M", "occasion": "party", "image": "/images/longsleeve minidress.png"},
-    {"id": 9, "name": "Off-the-Shoulder Sweater", "style": "casual", "color": "white", "size": "S", "occasion": "daily", "image": "/images/off-the-shoulder sweater.png"},
-    {"id": 10, "name": "Straight Jeans", "style": "casual", "color": "blue", "size": "L", "occasion": "daily", "image": "/images/straight jeans.png"},
+    {"id": 4, "name": "Cargo Sweatpants", "style": "athleisure", "color": "gray", "size": "L", "occasion": "daily", "image": "/images/cargosweatpants.png"},
+    {"id": 5, "name": "Cozy Fleece Set", "style": "loungewear", "color": "cream", "size": "M", "occasion": "home", "image": "/images/cozyfleece set.png"},
+    {"id": 6, "name": "Denim Skirt", "style": "casual", "color": "blue", "size": "M", "occasion": "daily", "image": "/images/denimskirt.png"},
+    {"id": 7, "name": "Flared Leggings", "style": "athleisure", "color": "black", "size": "S", "occasion": "workout", "image": "/images/flaredleggings.png"},
+    {"id": 8, "name": "Longsleeve Minidress", "style": "formal", "color": "red", "size": "M", "occasion": "party", "image": "/images/longsleeveminidress.png"},
+    {"id": 9, "name": "Off-the-Shoulder Sweater", "style": "casual", "color": "white", "size": "S", "occasion": "daily", "image": "/images/off-the-shouldersweater.png"},
+    {"id": 10, "name": "Straight Jeans", "style": "casual", "color": "blue", "size": "L", "occasion": "daily", "image": "/images/straightjeans.png"},
     {"id": 11, "name": "Sweater", "style": "casual", "color": "gray", "size": "M", "occasion": "daily", "image": "/images/sweater.jpeg"},
-    {"id": 12, "name": "Tennis Skirt", "style": "sporty", "color": "white", "size": "S", "occasion": "sports", "image": "/images/tennis skirt.png"},
+    {"id": 12, "name": "Tennis Skirt", "style": "sporty", "color": "white", "size": "S", "occasion": "sports", "image": "/images/tennisskirt.png"},
     {"id": 13, "name": "Turtleneck", "style": "formal", "color": "blue", "size": "M", "occasion": "office", "image": "/images/turtleneck.png"},
     {"id": 14, "name": "Vest", "style": "winter", "color": "black", "size": "L", "occasion": "outdoor", "image": "/images/vest.png"},
 ]
@@ -37,7 +38,7 @@ vectorizer = CountVectorizer()
 feature_matrix = vectorizer.fit_transform(df['combined_features'])
 
 # Route for recommending clothes
-@app.route("/recommend", methods=["OPTIONS", "POST"])
+@app.route("/recommend", methods=["OPTIONS", "POST", "GET"])
 @cross_origin()
 def recommend():
     # Handle preflight requests (OPTIONS)
@@ -58,7 +59,7 @@ def recommend():
 
     # Add CORS headers to the response
     response = jsonify({"recommendations": recommendations})
-    response.headers.add("Access-Control-Allow-Origin", "*")
+    #response.headers.add("Access-Control-Allow-Origin", "*")
     return response
 
 @app.route('/api/data', methods=['POST'])
